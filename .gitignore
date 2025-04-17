@@ -48,6 +48,10 @@ data/*.png
 data/*.jpg
 data/*.pdf
 
+# Normal output data
+*.ttl
+*.json
+
 # Logs and databases
 *.log
 *.sqlite
