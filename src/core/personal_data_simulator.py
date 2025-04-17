@@ -7,6 +7,13 @@ import random
 from typing import Optional
 from ..utils.data_simulator import PersonalDataSimulator
 from .personal_ontology_builder import PersonalOntologyBuilder
+from enum import Enum, auto
+
+class DataType(Enum):
+    HEALTH_ONLY = auto()
+    TRAVEL_ONLY = auto()
+    HEALTH_AND_TRAVEL = auto()
+    NO_DATA = auto()
 
 class PersonalDataKnowledgeSimulator:
     def __init__(self, person_id: str, start_date: Optional[datetime] = None,
@@ -23,21 +30,42 @@ class PersonalDataKnowledgeSimulator:
         self.data_simulator = PersonalDataSimulator(start_date)
         self.ontology_builder = PersonalOntologyBuilder(base_uri)
         self.travel_probability = 0.1  # 10% chance of travel booking per day
+        self.health_probability = 0.5  # 50% chance of health data per day
         
-    def simulate_day(self) -> None:
-        """Simulate one day of personal data and add it to the ontology."""
-        # Generate and add health data
-        health_data = self.data_simulator.generate_daily_health_data()
-        self.ontology_builder.add_health_data(health_data, self.person_id)
+    def simulate_day(self) -> DataType:
+        """
+        Simulate one day of personal data and add it to the ontology.
         
-        # Randomly generate travel bookings
-        if random.random() < self.travel_probability:
+        Returns:
+            DataType: Enum indicating what type of data was added (HEALTH_ONLY or HEALTH_AND_TRAVEL)
+        """
+        # Initialize data type
+        data_type = DataType.NO_DATA
+        
+        # Determine which types of data to generate based on probabilities
+        generate_travel = random.random() < self.travel_probability
+        generate_health = random.random() < self.health_probability
+
+        # Generate and add the appropriate data
+        if generate_travel and generate_health:
+            travel_data = self.data_simulator.generate_travel_booking()
+            health_data = self.data_simulator.generate_daily_health_data()
+            self.ontology_builder.add_travel_booking(travel_data, self.person_id)
+            self.ontology_builder.add_health_data(health_data, self.person_id)
+            data_type = DataType.HEALTH_AND_TRAVEL
+        elif generate_travel:
             travel_data = self.data_simulator.generate_travel_booking()
             self.ontology_builder.add_travel_booking(travel_data, self.person_id)
-        
+            data_type = DataType.TRAVEL_ONLY
+        elif generate_health:
+            health_data = self.data_simulator.generate_daily_health_data()
+            self.ontology_builder.add_health_data(health_data, self.person_id)
+            data_type = DataType.HEALTH_ONLY
+            
         # Advance to next day
         self.data_simulator.advance_day()
-    
+        
+        return data_type
     def simulate_period(self, days: int) -> None:
         """
         Simulate personal data for a specified number of days.
