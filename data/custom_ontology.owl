@@ -1,0 +1,40 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ex: <http://example.org/custom/> .
+
+# Ontology Declaration
+ex: rdf:type owl:Ontology ;
+    rdfs:label "Example Person Ontology" .
+
+# Class Definition
+ex:Person rdf:type owl:Class ;
+    rdfs:label "Person" ;
+    rdfs:comment "A class representing a person" .
+
+# Property Definitions
+ex:hasName rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Person ;
+    rdfs:range xsd:string ;
+    rdfs:label "has name" .
+
+ex:hasAge rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Person ;
+    rdfs:range xsd:integer ;
+    rdfs:label "has age" .
+
+ex:hasEmail rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Person ;
+    rdfs:range xsd:string ;
+    rdfs:label "has email" .
+
+ex:hasPhoneNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain ex:Person ;
+    rdfs:range xsd:string ;
+    rdfs:label "has phone number" .
+
+# Property Constraints
+ex:hasAge rdfs:comment "Age must be between 0 and 120" ;
+    owl:minInclusive "0"^^xsd:integer ;
+    owl:maxInclusive "120"^^xsd:integer . 

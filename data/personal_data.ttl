@@ -1,565 +1,699 @@
-@prefix ns1: <rdf:> .
-@prefix ns2: <health:> .
-@prefix ns3: <rdfs:> .
-@prefix ns4: <travel:> .
+@prefix general: <http://example.org/personal/general/> .
+@prefix health: <http://example.org/personal/health/> .
+@prefix location: <http://example.org/personal/location/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix person: <http://example.org/personal/person/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix travel: <http://example.org/personal/travel/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-ns2:HealthMetric ns1:type owl:Class ;
-    ns3:label "Health Metric"^^xsd:string .
-
-ns2:activity_person123_2024-01-01 ns2:hasCaloriesBurned 2057 ;
-    ns2:hasSteps 13847 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-02 ns2:hasCaloriesBurned 2803 ;
-    ns2:hasSteps 8478 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-03 ns2:hasCaloriesBurned 3475 ;
-    ns2:hasSteps 8550 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-04 ns2:hasCaloriesBurned 2473 ;
-    ns2:hasSteps 4635 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-05 ns2:hasCaloriesBurned 1989 ;
-    ns2:hasSteps 6298 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-06 ns2:hasCaloriesBurned 2915 ;
-    ns2:hasSteps 9177 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-07 ns2:hasCaloriesBurned 2992 ;
-    ns2:hasSteps 8500 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-08 ns2:hasCaloriesBurned 2093 ;
-    ns2:hasSteps 3120 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-09 ns2:hasCaloriesBurned 2208 ;
-    ns2:hasSteps 8527 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-10 ns2:hasCaloriesBurned 3045 ;
-    ns2:hasSteps 14467 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-11 ns2:hasCaloriesBurned 2255 ;
-    ns2:hasSteps 11607 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-12 ns2:hasCaloriesBurned 3050 ;
-    ns2:hasSteps 2774 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-13 ns2:hasCaloriesBurned 3498 ;
-    ns2:hasSteps 2594 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-14 ns2:hasCaloriesBurned 2433 ;
-    ns2:hasSteps 4966 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-15 ns2:hasCaloriesBurned 2381 ;
-    ns2:hasSteps 7093 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-16 ns2:hasCaloriesBurned 1948 ;
-    ns2:hasSteps 12738 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-17 ns2:hasCaloriesBurned 1800 ;
-    ns2:hasSteps 4110 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-18 ns2:hasCaloriesBurned 1993 ;
-    ns2:hasSteps 6724 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-19 ns2:hasCaloriesBurned 3256 ;
-    ns2:hasSteps 5481 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-20 ns2:hasCaloriesBurned 2790 ;
-    ns2:hasSteps 14073 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-21 ns2:hasCaloriesBurned 2021 ;
-    ns2:hasSteps 4997 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-22 ns2:hasCaloriesBurned 3365 ;
-    ns2:hasSteps 13217 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-23 ns2:hasCaloriesBurned 2745 ;
-    ns2:hasSteps 10566 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-24 ns2:hasCaloriesBurned 2142 ;
-    ns2:hasSteps 4599 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-25 ns2:hasCaloriesBurned 3307 ;
-    ns2:hasSteps 5225 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-26 ns2:hasCaloriesBurned 2126 ;
-    ns2:hasSteps 9741 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-27 ns2:hasCaloriesBurned 3000 ;
-    ns2:hasSteps 11352 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-28 ns2:hasCaloriesBurned 2454 ;
-    ns2:hasSteps 4352 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-29 ns2:hasCaloriesBurned 3132 ;
-    ns2:hasSteps 11246 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:activity_person123_2024-01-30 ns2:hasCaloriesBurned 3090 ;
-    ns2:hasSteps 3870 ;
-    ns1:type ns2:PhysicalActivity .
-
-ns2:hasCaloriesBurned ns1:type owl:DatatypeProperty ;
-    ns3:domain ns2:PhysicalActivity ;
-    ns3:range xsd:integer .
-
-ns2:hasHeartRate ns1:type owl:DatatypeProperty ;
-    ns3:domain ns2:VitalSigns ;
-    ns3:range xsd:integer .
-
-ns2:hasSteps ns1:type owl:DatatypeProperty ;
-    ns3:domain ns2:PhysicalActivity ;
-    ns3:range xsd:integer .
-
-ns2:sleep_person123_2024-01-01 ns2:hasDeepSleep 2.17e+00 ;
-    ns2:hasDuration 5.15e+00 ;
-    ns2:hasREMSleep 1.76e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-02 ns2:hasDeepSleep 1.85e+00 ;
-    ns2:hasDuration 5.59e+00 ;
-    ns2:hasREMSleep 2.45e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-03 ns2:hasDeepSleep 2.84e+00 ;
-    ns2:hasDuration 5.58e+00 ;
-    ns2:hasREMSleep 1.52e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-04 ns2:hasDeepSleep 2.56e+00 ;
-    ns2:hasDuration 7.34e+00 ;
-    ns2:hasREMSleep 2.31e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-05 ns2:hasDeepSleep 2.28e+00 ;
-    ns2:hasDuration 8.51e+00 ;
-    ns2:hasREMSleep 2.16e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-06 ns2:hasDeepSleep 1.45e+00 ;
-    ns2:hasDuration 8.58e+00 ;
-    ns2:hasREMSleep 1.36e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-07 ns2:hasDeepSleep 2.75e+00 ;
-    ns2:hasDuration 6.42e+00 ;
-    ns2:hasREMSleep 1.76e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-08 ns2:hasDeepSleep 2.78e+00 ;
-    ns2:hasDuration 6.5e+00 ;
-    ns2:hasREMSleep 1.82e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-09 ns2:hasDeepSleep 2.35e+00 ;
-    ns2:hasDuration 5.62e+00 ;
-    ns2:hasREMSleep 1.58e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-10 ns2:hasDeepSleep 1.3e+00 ;
-    ns2:hasDuration 5.24e+00 ;
-    ns2:hasREMSleep 1.61e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-11 ns2:hasDeepSleep 2.52e+00 ;
-    ns2:hasDuration 7.01e+00 ;
-    ns2:hasREMSleep 1.73e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-12 ns2:hasDeepSleep 2.92e+00 ;
-    ns2:hasDuration 6.55e+00 ;
-    ns2:hasREMSleep 1.76e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-13 ns2:hasDeepSleep 2.89e+00 ;
-    ns2:hasDuration 8.79e+00 ;
-    ns2:hasREMSleep 1.93e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-14 ns2:hasDeepSleep 2.4e+00 ;
-    ns2:hasDuration 7.17e+00 ;
-    ns2:hasREMSleep 2.29e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-15 ns2:hasDeepSleep 1.8e+00 ;
-    ns2:hasDuration 8.26e+00 ;
-    ns2:hasREMSleep 1.29e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-16 ns2:hasDeepSleep 2.41e+00 ;
-    ns2:hasDuration 7.24e+00 ;
-    ns2:hasREMSleep 2.23e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-17 ns2:hasDeepSleep 1.58e+00 ;
-    ns2:hasDuration 5.32e+00 ;
-    ns2:hasREMSleep 1.89e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-18 ns2:hasDeepSleep 1.28e+00 ;
-    ns2:hasDuration 7.33e+00 ;
-    ns2:hasREMSleep 1.21e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-19 ns2:hasDeepSleep 1.77e+00 ;
-    ns2:hasDuration 8.9e+00 ;
-    ns2:hasREMSleep 1.39e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-20 ns2:hasDeepSleep 2.73e+00 ;
-    ns2:hasDuration 7.16e+00 ;
-    ns2:hasREMSleep 2.46e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-21 ns2:hasDeepSleep 1.81e+00 ;
-    ns2:hasDuration 7.33e+00 ;
-    ns2:hasREMSleep 2.49e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-22 ns2:hasDeepSleep 2.88e+00 ;
-    ns2:hasDuration 8.91e+00 ;
-    ns2:hasREMSleep 1.85e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-23 ns2:hasDeepSleep 1.68e+00 ;
-    ns2:hasDuration 8.65e+00 ;
-    ns2:hasREMSleep 1.79e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-24 ns2:hasDeepSleep 2.14e+00 ;
-    ns2:hasDuration 8.78e+00 ;
-    ns2:hasREMSleep 1.42e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-25 ns2:hasDeepSleep 1.23e+00 ;
-    ns2:hasDuration 7.55e+00 ;
-    ns2:hasREMSleep 1.9e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-26 ns2:hasDeepSleep 2.95e+00 ;
-    ns2:hasDuration 7.97e+00 ;
-    ns2:hasREMSleep 1.19e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-27 ns2:hasDeepSleep 1.33e+00 ;
-    ns2:hasDuration 8.24e+00 ;
-    ns2:hasREMSleep 1.74e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-28 ns2:hasDeepSleep 1.34e+00 ;
-    ns2:hasDuration 7.33e+00 ;
-    ns2:hasREMSleep 1.22e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-29 ns2:hasDeepSleep 2.69e+00 ;
-    ns2:hasDuration 7.08e+00 ;
-    ns2:hasREMSleep 1.07e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:sleep_person123_2024-01-30 ns2:hasDeepSleep 2.94e+00 ;
-    ns2:hasDuration 7.37e+00 ;
-    ns2:hasREMSleep 2.22e+00 ;
-    ns1:type ns2:Sleep .
-
-ns2:vitals_person123_2024-01-01 ns2:hasBloodPressureDiastolic 77 ;
-    ns2:hasBloodPressureSystolic 129 ;
-    ns2:hasHeartRate 99 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-02 ns2:hasBloodPressureDiastolic 78 ;
-    ns2:hasBloodPressureSystolic 113 ;
-    ns2:hasHeartRate 87 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-03 ns2:hasBloodPressureDiastolic 73 ;
-    ns2:hasBloodPressureSystolic 112 ;
-    ns2:hasHeartRate 85 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-04 ns2:hasBloodPressureDiastolic 83 ;
-    ns2:hasBloodPressureSystolic 129 ;
-    ns2:hasHeartRate 99 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-05 ns2:hasBloodPressureDiastolic 81 ;
-    ns2:hasBloodPressureSystolic 121 ;
-    ns2:hasHeartRate 68 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-06 ns2:hasBloodPressureDiastolic 72 ;
-    ns2:hasBloodPressureSystolic 111 ;
-    ns2:hasHeartRate 87 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-07 ns2:hasBloodPressureDiastolic 81 ;
-    ns2:hasBloodPressureSystolic 127 ;
-    ns2:hasHeartRate 81 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-08 ns2:hasBloodPressureDiastolic 76 ;
-    ns2:hasBloodPressureSystolic 129 ;
-    ns2:hasHeartRate 93 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-09 ns2:hasBloodPressureDiastolic 75 ;
-    ns2:hasBloodPressureSystolic 125 ;
-    ns2:hasHeartRate 85 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-10 ns2:hasBloodPressureDiastolic 74 ;
-    ns2:hasBloodPressureSystolic 129 ;
-    ns2:hasHeartRate 62 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-11 ns2:hasBloodPressureDiastolic 78 ;
-    ns2:hasBloodPressureSystolic 126 ;
-    ns2:hasHeartRate 91 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-12 ns2:hasBloodPressureDiastolic 73 ;
-    ns2:hasBloodPressureSystolic 113 ;
-    ns2:hasHeartRate 74 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-13 ns2:hasBloodPressureDiastolic 74 ;
-    ns2:hasBloodPressureSystolic 124 ;
-    ns2:hasHeartRate 66 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-14 ns2:hasBloodPressureDiastolic 70 ;
-    ns2:hasBloodPressureSystolic 119 ;
-    ns2:hasHeartRate 85 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-15 ns2:hasBloodPressureDiastolic 70 ;
-    ns2:hasBloodPressureSystolic 120 ;
-    ns2:hasHeartRate 71 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-16 ns2:hasBloodPressureDiastolic 77 ;
-    ns2:hasBloodPressureSystolic 115 ;
-    ns2:hasHeartRate 77 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-17 ns2:hasBloodPressureDiastolic 70 ;
-    ns2:hasBloodPressureSystolic 125 ;
-    ns2:hasHeartRate 82 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-18 ns2:hasBloodPressureDiastolic 80 ;
-    ns2:hasBloodPressureSystolic 130 ;
-    ns2:hasHeartRate 97 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-19 ns2:hasBloodPressureDiastolic 75 ;
-    ns2:hasBloodPressureSystolic 123 ;
-    ns2:hasHeartRate 91 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-20 ns2:hasBloodPressureDiastolic 70 ;
-    ns2:hasBloodPressureSystolic 112 ;
-    ns2:hasHeartRate 81 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-21 ns2:hasBloodPressureDiastolic 71 ;
-    ns2:hasBloodPressureSystolic 123 ;
-    ns2:hasHeartRate 66 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-22 ns2:hasBloodPressureDiastolic 85 ;
-    ns2:hasBloodPressureSystolic 116 ;
-    ns2:hasHeartRate 73 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-23 ns2:hasBloodPressureDiastolic 71 ;
-    ns2:hasBloodPressureSystolic 124 ;
-    ns2:hasHeartRate 92 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-24 ns2:hasBloodPressureDiastolic 83 ;
-    ns2:hasBloodPressureSystolic 125 ;
-    ns2:hasHeartRate 66 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-25 ns2:hasBloodPressureDiastolic 80 ;
-    ns2:hasBloodPressureSystolic 122 ;
-    ns2:hasHeartRate 69 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-26 ns2:hasBloodPressureDiastolic 73 ;
-    ns2:hasBloodPressureSystolic 112 ;
-    ns2:hasHeartRate 63 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-27 ns2:hasBloodPressureDiastolic 80 ;
-    ns2:hasBloodPressureSystolic 112 ;
-    ns2:hasHeartRate 63 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-28 ns2:hasBloodPressureDiastolic 78 ;
-    ns2:hasBloodPressureSystolic 114 ;
-    ns2:hasHeartRate 89 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-29 ns2:hasBloodPressureDiastolic 81 ;
-    ns2:hasBloodPressureSystolic 128 ;
-    ns2:hasHeartRate 64 ;
-    ns1:type ns2:VitalSigns .
-
-ns2:vitals_person123_2024-01-30 ns2:hasBloodPressureDiastolic 74 ;
-    ns2:hasBloodPressureSystolic 126 ;
-    ns2:hasHeartRate 100 ;
-    ns1:type ns2:VitalSigns .
-
-<location:City> ns1:type owl:Class ;
-    ns3:label "City"^^xsd:string .
-
-ns4:booking_53d07aec-da0c-42bf-86cb-c32b18b07aa8 ns1:type ns4:Booking ;
-    ns4:hasBookingDate "2024-01-29"^^xsd:date ;
-    ns4:hasBookingReference "53d07aec-da0c-42bf-86cb-c32b18b07aa8"^^xsd:string ;
-    ns4:hasFlight ns4:flight_53d07aec-da0c-42bf-86cb-c32b18b07aa8_outbound ;
-    ns4:hasHotel ns4:hotel_53d07aec-da0c-42bf-86cb-c32b18b07aa8 .
-
-ns4:booking_65db61af-e8b4-43af-8e32-af2c47f0cf20 ns1:type ns4:Booking ;
-    ns4:hasBookingDate "2024-01-14"^^xsd:date ;
-    ns4:hasBookingReference "65db61af-e8b4-43af-8e32-af2c47f0cf20"^^xsd:string ;
-    ns4:hasFlight ns4:flight_65db61af-e8b4-43af-8e32-af2c47f0cf20_outbound ;
-    ns4:hasHotel ns4:hotel_65db61af-e8b4-43af-8e32-af2c47f0cf20 .
-
-ns4:booking_795b36d6-ed62-4688-a48e-339d70874493 ns1:type ns4:Booking ;
-    ns4:hasBookingDate "2024-01-05"^^xsd:date ;
-    ns4:hasBookingReference "795b36d6-ed62-4688-a48e-339d70874493"^^xsd:string ;
-    ns4:hasFlight ns4:flight_795b36d6-ed62-4688-a48e-339d70874493_outbound ;
-    ns4:hasHotel ns4:hotel_795b36d6-ed62-4688-a48e-339d70874493 .
-
-ns4:booking_7ad1bcc6-d5ae-49ef-9feb-e1cfdc6bc7e9 ns1:type ns4:Booking ;
-    ns4:hasBookingDate "2024-01-03"^^xsd:date ;
-    ns4:hasBookingReference "7ad1bcc6-d5ae-49ef-9feb-e1cfdc6bc7e9"^^xsd:string ;
-    ns4:hasFlight ns4:flight_7ad1bcc6-d5ae-49ef-9feb-e1cfdc6bc7e9_outbound ;
-    ns4:hasHotel ns4:hotel_7ad1bcc6-d5ae-49ef-9feb-e1cfdc6bc7e9 .
-
-ns4:booking_ef508de8-dfee-488d-ae8f-5c52979f56d8 ns1:type ns4:Booking ;
-    ns4:hasBookingDate "2024-01-26"^^xsd:date ;
-    ns4:hasBookingReference "ef508de8-dfee-488d-ae8f-5c52979f56d8"^^xsd:string ;
-    ns4:hasFlight ns4:flight_ef508de8-dfee-488d-ae8f-5c52979f56d8_outbound ;
-    ns4:hasHotel ns4:hotel_ef508de8-dfee-488d-ae8f-5c52979f56d8 .
-
-ns4:hasArrival ns1:type owl:ObjectProperty ;
-    ns3:domain ns4:Flight ;
-    ns3:range <location:Airport> .
-
-ns4:hasBookingReference ns1:type owl:DatatypeProperty ;
-    ns3:domain ns4:Booking ;
-    ns3:range xsd:string .
-
-ns4:hasDeparture ns1:type owl:ObjectProperty ;
-    ns3:domain ns4:Flight ;
-    ns3:range <location:Airport> .
-
-ns4:hasName ns1:type owl:DatatypeProperty ;
-    ns3:domain ns4:Hotel ;
-    ns3:range xsd:string .
-
-ns4:flight_53d07aec-da0c-42bf-86cb-c32b18b07aa8_outbound ns1:type ns4:Flight ;
-    ns4:hasArrival <location:airport_JFK> ;
-    ns4:hasDeparture <location:airport_CDG> ;
-    ns4:hasFlightNumber "SQ976"^^xsd:string .
-
-ns4:flight_65db61af-e8b4-43af-8e32-af2c47f0cf20_outbound ns1:type ns4:Flight ;
-    ns4:hasArrival <location:airport_CDG> ;
-    ns4:hasDeparture <location:airport_SIN> ;
-    ns4:hasFlightNumber "SQ561"^^xsd:string .
-
-ns4:flight_795b36d6-ed62-4688-a48e-339d70874493_outbound ns1:type ns4:Flight ;
-    ns4:hasArrival <location:airport_LHR> ;
-    ns4:hasDeparture <location:airport_SIN> ;
-    ns4:hasFlightNumber "SQ560"^^xsd:string .
-
-ns4:flight_7ad1bcc6-d5ae-49ef-9feb-e1cfdc6bc7e9_outbound ns1:type ns4:Flight ;
-    ns4:hasArrival <location:airport_JFK> ;
-    ns4:hasDeparture <location:airport_CDG> ;
-    ns4:hasFlightNumber "SQ832"^^xsd:string .
-
-ns4:flight_ef508de8-dfee-488d-ae8f-5c52979f56d8_outbound ns1:type ns4:Flight ;
-    ns4:hasArrival <location:airport_LHR> ;
-    ns4:hasDeparture <location:airport_SIN> ;
-    ns4:hasFlightNumber "BA235"^^xsd:string .
-
-ns4:hotel_53d07aec-da0c-42bf-86cb-c32b18b07aa8 ns1:type ns4:Hotel ;
-    ns4:hasBookingReference "HB33048"^^xsd:string ;
-    ns4:hasName "W Hotels"^^xsd:string .
-
-ns4:hotel_65db61af-e8b4-43af-8e32-af2c47f0cf20 ns1:type ns4:Hotel ;
-    ns4:hasBookingReference "HB54680"^^xsd:string ;
-    ns4:hasName "W Hotels"^^xsd:string .
-
-ns4:hotel_795b36d6-ed62-4688-a48e-339d70874493 ns1:type ns4:Hotel ;
-    ns4:hasBookingReference "HB47938"^^xsd:string ;
-    ns4:hasName "Marriott"^^xsd:string .
-
-ns4:hotel_7ad1bcc6-d5ae-49ef-9feb-e1cfdc6bc7e9 ns1:type ns4:Hotel ;
-    ns4:hasBookingReference "HB78823"^^xsd:string ;
-    ns4:hasName "Ritz-Carlton"^^xsd:string .
-
-ns4:hotel_ef508de8-dfee-488d-ae8f-5c52979f56d8 ns1:type ns4:Hotel ;
-    ns4:hasBookingReference "HB87682"^^xsd:string ;
-    ns4:hasName "W Hotels"^^xsd:string .
-
-<location:airport_JFK> ns1:type <location:Airport> .
-
-<location:airport_LHR> ns1:type <location:Airport> .
-
-<location:airport_CDG> ns1:type <location:Airport> .
-
-<location:airport_SIN> ns1:type <location:Airport> .
-
-<location:Airport> ns1:type owl:Class ;
-    ns3:label "Airport"^^xsd:string .
-
-ns4:Booking ns1:type owl:Class ;
-    ns3:label "Travel Booking"^^xsd:string .
-
-ns4:Hotel ns1:type owl:Class ;
-    ns3:label "Hotel"^^xsd:string .
-
-ns4:Flight ns1:type owl:Class ;
-    ns3:label "Flight"^^xsd:string .
-
-ns2:Sleep ns1:type owl:Class ;
-    ns3:label "Sleep"^^xsd:string .
-
-ns2:VitalSigns ns1:type owl:Class ;
-    ns3:label "Vital Signs"^^xsd:string .
-
-ns2:PhysicalActivity ns1:type owl:Class ;
-    ns3:label "Physical Activity"^^xsd:string .
+general:hasActivity a owl:ObjectProperty ;
+    rdfs:domain general:Others ;
+    rdfs:range general:OtherActivity .
+
+health:hasCaloriesBurned a owl:DatatypeProperty ;
+    rdfs:domain health:PhysicalActivity ;
+    rdfs:range xsd:integer .
+
+health:hasHeartRate a owl:DatatypeProperty ;
+    rdfs:domain health:VitalSigns ;
+    rdfs:range xsd:integer .
+
+health:hasSteps a owl:DatatypeProperty ;
+    rdfs:domain health:PhysicalActivity ;
+    rdfs:range xsd:integer .
+
+health:timestamp a owl:DatatypeProperty ;
+    rdfs:domain health:HealthMetric ;
+    rdfs:range xsd:dateTime .
+
+location:City a owl:Class ;
+    rdfs:label "City"^^xsd:string .
+
+person:hasActivity a owl:ObjectProperty ;
+    rdfs:domain person:Person ;
+    rdfs:range general:Others .
+
+person:hasHealthData a owl:ObjectProperty ;
+    rdfs:domain person:Person ;
+    rdfs:range health:HealthMetric .
+
+person:hasTravelBooking a owl:ObjectProperty ;
+    rdfs:domain person:Person ;
+    rdfs:range travel:Booking .
+
+person:person_person123 a person:Person ;
+    person:hasActivity general:activity_1742466893,
+        general:activity_1742553293,
+        general:activity_1742812493,
+        general:activity_1743071693,
+        general:activity_1743503693,
+        general:activity_1743762893,
+        general:activity_1744022093,
+        general:activity_1744108493,
+        general:activity_1744281293,
+        general:activity_1744713293,
+        general:activity_1744799693 ;
+    person:hasHealthData health:activity_1742380493,
+        health:activity_1742639693,
+        health:activity_1742726093,
+        health:activity_1742898893,
+        health:activity_1743158093,
+        health:activity_1743244493,
+        health:activity_1743330893,
+        health:activity_1743417293,
+        health:activity_1743590093,
+        health:activity_1743676493,
+        health:activity_1743849293,
+        health:activity_1743935693,
+        health:activity_1744194893,
+        health:activity_1744367693,
+        health:activity_1744454093,
+        health:activity_1744540493,
+        health:activity_1744626893,
+        health:activity_1744886093,
+        health:sleep_1742380493,
+        health:sleep_1742639693,
+        health:sleep_1742726093,
+        health:sleep_1742898893,
+        health:sleep_1743158093,
+        health:sleep_1743244493,
+        health:sleep_1743330893,
+        health:sleep_1743417293,
+        health:sleep_1743590093,
+        health:sleep_1743676493,
+        health:sleep_1743849293,
+        health:sleep_1743935693,
+        health:sleep_1744194893,
+        health:sleep_1744367693,
+        health:sleep_1744454093,
+        health:sleep_1744540493,
+        health:sleep_1744626893,
+        health:sleep_1744886093,
+        health:vitals_1742380493,
+        health:vitals_1742639693,
+        health:vitals_1742726093,
+        health:vitals_1742898893,
+        health:vitals_1743158093,
+        health:vitals_1743244493,
+        health:vitals_1743330893,
+        health:vitals_1743417293,
+        health:vitals_1743590093,
+        health:vitals_1743676493,
+        health:vitals_1743849293,
+        health:vitals_1743935693,
+        health:vitals_1744194893,
+        health:vitals_1744367693,
+        health:vitals_1744454093,
+        health:vitals_1744540493,
+        health:vitals_1744626893,
+        health:vitals_1744886093 ;
+    person:hasTravelBooking travel:booking_3cab25c7-df63-4705-a792-899c8730aceb,
+        travel:booking_a5fc9009-34a0-4af3-b2de-1166ec410974,
+        travel:booking_a8609bd3-50df-4a25-9f54-ab06266c7a82,
+        travel:booking_befa301e-0ff0-4459-8857-d22f67589116 ;
+    person:travelTo travel:place_3cab25c7-df63-4705-a792-899c8730aceb,
+        travel:place_a5fc9009-34a0-4af3-b2de-1166ec410974,
+        travel:place_a8609bd3-50df-4a25-9f54-ab06266c7a82,
+        travel:place_befa301e-0ff0-4459-8857-d22f67589116 .
+
+person:travelTo a owl:ObjectProperty ;
+    rdfs:domain person:Person ;
+    rdfs:range travel:Place .
+
+travel:hasArrival a owl:ObjectProperty ;
+    rdfs:domain travel:Flight ;
+    rdfs:range location:Airport .
+
+travel:hasBookingReference a owl:DatatypeProperty ;
+    rdfs:domain travel:Booking ;
+    rdfs:range xsd:string .
+
+travel:hasDeparture a owl:ObjectProperty ;
+    rdfs:domain travel:Flight ;
+    rdfs:range location:Airport .
+
+travel:hasName a owl:DatatypeProperty ;
+    rdfs:domain travel:Hotel ;
+    rdfs:range xsd:string .
+
+travel:placeInfo a owl:DatatypeProperty ;
+    rdfs:domain travel:Place ;
+    rdfs:range xsd:string .
+
+travel:placeName a owl:DatatypeProperty ;
+    rdfs:domain travel:Place ;
+    rdfs:range xsd:string .
+
+travel:placeTime a owl:DatatypeProperty ;
+    rdfs:domain travel:Place ;
+    rdfs:range xsd:dateTime .
+
+general:activity_1742466893 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+general:activity_1742553293 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+general:activity_1742812493 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+general:activity_1743071693 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+general:activity_1743503693 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+general:activity_1743762893 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+general:activity_1744022093 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+general:activity_1744108493 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+general:activity_1744281293 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+general:activity_1744713293 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+general:activity_1744799693 a general:Others ;
+    general:hasActivity general:OtherActivity .
+
+health:activity_1742380493 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 2413 ;
+    health:hasSteps 10319 ;
+    health:timestamp "2025-03-19T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1742639693 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 2293 ;
+    health:hasSteps 14999 ;
+    health:timestamp "2025-03-22T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1742726093 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 2799 ;
+    health:hasSteps 3917 ;
+    health:timestamp "2025-03-23T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1742898893 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 1839 ;
+    health:hasSteps 9480 ;
+    health:timestamp "2025-03-25T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1743158093 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 2534 ;
+    health:hasSteps 10513 ;
+    health:timestamp "2025-03-28T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1743244493 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 3481 ;
+    health:hasSteps 8899 ;
+    health:timestamp "2025-03-29T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1743330893 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 2990 ;
+    health:hasSteps 11410 ;
+    health:timestamp "2025-03-30T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1743417293 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 1965 ;
+    health:hasSteps 6432 ;
+    health:timestamp "2025-03-31T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1743590093 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 3338 ;
+    health:hasSteps 4072 ;
+    health:timestamp "2025-04-02T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1743676493 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 2783 ;
+    health:hasSteps 12714 ;
+    health:timestamp "2025-04-03T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1743849293 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 2422 ;
+    health:hasSteps 5069 ;
+    health:timestamp "2025-04-05T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1743935693 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 3267 ;
+    health:hasSteps 4896 ;
+    health:timestamp "2025-04-06T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1744194893 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 1930 ;
+    health:hasSteps 14149 ;
+    health:timestamp "2025-04-09T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1744367693 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 3464 ;
+    health:hasSteps 11925 ;
+    health:timestamp "2025-04-11T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1744454093 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 1963 ;
+    health:hasSteps 2575 ;
+    health:timestamp "2025-04-12T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1744540493 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 2644 ;
+    health:hasSteps 6625 ;
+    health:timestamp "2025-04-13T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1744626893 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 2111 ;
+    health:hasSteps 9052 ;
+    health:timestamp "2025-04-14T16:04:53.613976"^^xsd:dateTime .
+
+health:activity_1744886093 a health:PhysicalActivity ;
+    health:hasCaloriesBurned 1871 ;
+    health:hasSteps 10947 ;
+    health:timestamp "2025-04-17T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1742380493 a health:Sleep ;
+    health:hasDeepSleep 2.49e+00 ;
+    health:hasDuration 7.08e+00 ;
+    health:hasREMSleep 2e+00 ;
+    health:timestamp "2025-03-19T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1742639693 a health:Sleep ;
+    health:hasDeepSleep 2.65e+00 ;
+    health:hasDuration 8.06e+00 ;
+    health:hasREMSleep 1.06e+00 ;
+    health:timestamp "2025-03-22T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1742726093 a health:Sleep ;
+    health:hasDeepSleep 1.57e+00 ;
+    health:hasDuration 7.33e+00 ;
+    health:hasREMSleep 2.38e+00 ;
+    health:timestamp "2025-03-23T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1742898893 a health:Sleep ;
+    health:hasDeepSleep 1.09e+00 ;
+    health:hasDuration 5.45e+00 ;
+    health:hasREMSleep 1.77e+00 ;
+    health:timestamp "2025-03-25T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1743158093 a health:Sleep ;
+    health:hasDeepSleep 2.72e+00 ;
+    health:hasDuration 7.43e+00 ;
+    health:hasREMSleep 2.37e+00 ;
+    health:timestamp "2025-03-28T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1743244493 a health:Sleep ;
+    health:hasDeepSleep 2.23e+00 ;
+    health:hasDuration 7.58e+00 ;
+    health:hasREMSleep 1.1e+00 ;
+    health:timestamp "2025-03-29T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1743330893 a health:Sleep ;
+    health:hasDeepSleep 2.17e+00 ;
+    health:hasDuration 6.31e+00 ;
+    health:hasREMSleep 1.08e+00 ;
+    health:timestamp "2025-03-30T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1743417293 a health:Sleep ;
+    health:hasDeepSleep 1.59e+00 ;
+    health:hasDuration 5.8e+00 ;
+    health:hasREMSleep 1.79e+00 ;
+    health:timestamp "2025-03-31T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1743590093 a health:Sleep ;
+    health:hasDeepSleep 2.73e+00 ;
+    health:hasDuration 6.02e+00 ;
+    health:hasREMSleep 1.07e+00 ;
+    health:timestamp "2025-04-02T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1743676493 a health:Sleep ;
+    health:hasDeepSleep 2.11e+00 ;
+    health:hasDuration 6.44e+00 ;
+    health:hasREMSleep 1.6e+00 ;
+    health:timestamp "2025-04-03T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1743849293 a health:Sleep ;
+    health:hasDeepSleep 1.51e+00 ;
+    health:hasDuration 8.09e+00 ;
+    health:hasREMSleep 1.09e+00 ;
+    health:timestamp "2025-04-05T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1743935693 a health:Sleep ;
+    health:hasDeepSleep 2.22e+00 ;
+    health:hasDuration 5.84e+00 ;
+    health:hasREMSleep 2.05e+00 ;
+    health:timestamp "2025-04-06T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1744194893 a health:Sleep ;
+    health:hasDeepSleep 2.54e+00 ;
+    health:hasDuration 6.16e+00 ;
+    health:hasREMSleep 2e+00 ;
+    health:timestamp "2025-04-09T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1744367693 a health:Sleep ;
+    health:hasDeepSleep 1.58e+00 ;
+    health:hasDuration 6.72e+00 ;
+    health:hasREMSleep 2.37e+00 ;
+    health:timestamp "2025-04-11T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1744454093 a health:Sleep ;
+    health:hasDeepSleep 2.73e+00 ;
+    health:hasDuration 6.7e+00 ;
+    health:hasREMSleep 1.12e+00 ;
+    health:timestamp "2025-04-12T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1744540493 a health:Sleep ;
+    health:hasDeepSleep 1.83e+00 ;
+    health:hasDuration 6.28e+00 ;
+    health:hasREMSleep 2.22e+00 ;
+    health:timestamp "2025-04-13T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1744626893 a health:Sleep ;
+    health:hasDeepSleep 2.06e+00 ;
+    health:hasDuration 8.17e+00 ;
+    health:hasREMSleep 1.07e+00 ;
+    health:timestamp "2025-04-14T16:04:53.613976"^^xsd:dateTime .
+
+health:sleep_1744886093 a health:Sleep ;
+    health:hasDeepSleep 1.95e+00 ;
+    health:hasDuration 5.28e+00 ;
+    health:hasREMSleep 1.4e+00 ;
+    health:timestamp "2025-04-17T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1742380493 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 73 ;
+    health:hasBloodPressureSystolic 115 ;
+    health:hasHeartRate 97 ;
+    health:timestamp "2025-03-19T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1742639693 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 82 ;
+    health:hasBloodPressureSystolic 130 ;
+    health:hasHeartRate 72 ;
+    health:timestamp "2025-03-22T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1742726093 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 83 ;
+    health:hasBloodPressureSystolic 110 ;
+    health:hasHeartRate 84 ;
+    health:timestamp "2025-03-23T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1742898893 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 79 ;
+    health:hasBloodPressureSystolic 114 ;
+    health:hasHeartRate 82 ;
+    health:timestamp "2025-03-25T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1743158093 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 78 ;
+    health:hasBloodPressureSystolic 122 ;
+    health:hasHeartRate 98 ;
+    health:timestamp "2025-03-28T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1743244493 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 74 ;
+    health:hasBloodPressureSystolic 111 ;
+    health:hasHeartRate 68 ;
+    health:timestamp "2025-03-29T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1743330893 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 82 ;
+    health:hasBloodPressureSystolic 110 ;
+    health:hasHeartRate 62 ;
+    health:timestamp "2025-03-30T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1743417293 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 83 ;
+    health:hasBloodPressureSystolic 115 ;
+    health:hasHeartRate 81 ;
+    health:timestamp "2025-03-31T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1743590093 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 81 ;
+    health:hasBloodPressureSystolic 110 ;
+    health:hasHeartRate 73 ;
+    health:timestamp "2025-04-02T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1743676493 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 79 ;
+    health:hasBloodPressureSystolic 118 ;
+    health:hasHeartRate 74 ;
+    health:timestamp "2025-04-03T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1743849293 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 78 ;
+    health:hasBloodPressureSystolic 116 ;
+    health:hasHeartRate 63 ;
+    health:timestamp "2025-04-05T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1743935693 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 84 ;
+    health:hasBloodPressureSystolic 117 ;
+    health:hasHeartRate 89 ;
+    health:timestamp "2025-04-06T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1744194893 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 84 ;
+    health:hasBloodPressureSystolic 121 ;
+    health:hasHeartRate 60 ;
+    health:timestamp "2025-04-09T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1744367693 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 85 ;
+    health:hasBloodPressureSystolic 113 ;
+    health:hasHeartRate 71 ;
+    health:timestamp "2025-04-11T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1744454093 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 84 ;
+    health:hasBloodPressureSystolic 126 ;
+    health:hasHeartRate 85 ;
+    health:timestamp "2025-04-12T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1744540493 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 83 ;
+    health:hasBloodPressureSystolic 125 ;
+    health:hasHeartRate 97 ;
+    health:timestamp "2025-04-13T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1744626893 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 78 ;
+    health:hasBloodPressureSystolic 120 ;
+    health:hasHeartRate 81 ;
+    health:timestamp "2025-04-14T16:04:53.613976"^^xsd:dateTime .
+
+health:vitals_1744886093 a health:VitalSigns ;
+    health:hasBloodPressureDiastolic 78 ;
+    health:hasBloodPressureSystolic 116 ;
+    health:hasHeartRate 99 ;
+    health:timestamp "2025-04-17T16:04:53.613976"^^xsd:dateTime .
+
+travel:Hotel a owl:Class ;
+    rdfs:label "Hotel"^^xsd:string .
+
+travel:booking_3cab25c7-df63-4705-a792-899c8730aceb a travel:Booking ;
+    travel:bookingDate "2025-03-22T16:04:53.613976"^^xsd:dateTime ;
+    travel:bookingId "3cab25c7-df63-4705-a792-899c8730aceb" ;
+    travel:hasHotelBooking travel:hotel_booking_3cab25c7-df63-4705-a792-899c8730aceb ;
+    travel:hasOutboundFlight travel:flight_SQ152 ;
+    travel:hasReturnFlight travel:flight_LH148 .
+
+travel:booking_a5fc9009-34a0-4af3-b2de-1166ec410974 a travel:Booking ;
+    travel:bookingDate "2025-04-11T16:04:53.613976"^^xsd:dateTime ;
+    travel:bookingId "a5fc9009-34a0-4af3-b2de-1166ec410974" ;
+    travel:hasHotelBooking travel:hotel_booking_a5fc9009-34a0-4af3-b2de-1166ec410974 ;
+    travel:hasOutboundFlight travel:flight_LH546 ;
+    travel:hasReturnFlight travel:flight_LH491 .
+
+travel:booking_a8609bd3-50df-4a25-9f54-ab06266c7a82 a travel:Booking ;
+    travel:bookingDate "2025-04-18T16:04:53.613976"^^xsd:dateTime ;
+    travel:bookingId "a8609bd3-50df-4a25-9f54-ab06266c7a82" ;
+    travel:hasHotelBooking travel:hotel_booking_a8609bd3-50df-4a25-9f54-ab06266c7a82 ;
+    travel:hasOutboundFlight travel:flight_BA415 ;
+    travel:hasReturnFlight travel:flight_SQ463 .
+
+travel:booking_befa301e-0ff0-4459-8857-d22f67589116 a travel:Booking ;
+    travel:bookingDate "2025-03-26T16:04:53.613976"^^xsd:dateTime ;
+    travel:bookingId "befa301e-0ff0-4459-8857-d22f67589116" ;
+    travel:hasHotelBooking travel:hotel_booking_befa301e-0ff0-4459-8857-d22f67589116 ;
+    travel:hasOutboundFlight travel:flight_SQ279 ;
+    travel:hasReturnFlight travel:flight_BA566 .
+
+travel:flight_BA415 a travel:Flight ;
+    travel:airline "Singapore Airlines" ;
+    travel:arrivalAirport "DXB" ;
+    travel:arrivalCity "Dubai" ;
+    travel:arrivalCountry "UAE" ;
+    travel:arrivalDateTime "2025-05-09T02:49:00"^^xsd:dateTime ;
+    travel:departureAirport "JFK" ;
+    travel:departureCity "New York" ;
+    travel:departureCountry "USA" ;
+    travel:departureDateTime "2025-05-09T22:39:00"^^xsd:dateTime ;
+    travel:flightNumber "BA415" .
+
+travel:flight_BA566 a travel:Flight ;
+    travel:airline "Singapore Airlines" ;
+    travel:arrivalAirport "LHR" ;
+    travel:arrivalCity "London" ;
+    travel:arrivalCountry "UK" ;
+    travel:arrivalDateTime "2025-04-13T04:42:00"^^xsd:dateTime ;
+    travel:departureAirport "DXB" ;
+    travel:departureCity "Dubai" ;
+    travel:departureCountry "UAE" ;
+    travel:departureDateTime "2025-04-13T06:58:00"^^xsd:dateTime ;
+    travel:flightNumber "BA566" .
+
+travel:flight_LH148 a travel:Flight ;
+    travel:airline "Singapore Airlines" ;
+    travel:arrivalAirport "CDG" ;
+    travel:arrivalCity "Paris" ;
+    travel:arrivalCountry "France" ;
+    travel:arrivalDateTime "2025-04-14T17:13:00"^^xsd:dateTime ;
+    travel:departureAirport "LHR" ;
+    travel:departureCity "London" ;
+    travel:departureCountry "UK" ;
+    travel:departureDateTime "2025-04-14T02:02:00"^^xsd:dateTime ;
+    travel:flightNumber "LH148" .
+
+travel:flight_LH491 a travel:Flight ;
+    travel:airline "Emirates" ;
+    travel:arrivalAirport "LHR" ;
+    travel:arrivalCity "London" ;
+    travel:arrivalCountry "UK" ;
+    travel:arrivalDateTime "2025-04-23T14:39:00"^^xsd:dateTime ;
+    travel:departureAirport "CDG" ;
+    travel:departureCity "Paris" ;
+    travel:departureCountry "France" ;
+    travel:departureDateTime "2025-04-23T16:37:00"^^xsd:dateTime ;
+    travel:flightNumber "LH491" .
+
+travel:flight_LH546 a travel:Flight ;
+    travel:airline "Emirates" ;
+    travel:arrivalAirport "CDG" ;
+    travel:arrivalCity "Paris" ;
+    travel:arrivalCountry "France" ;
+    travel:arrivalDateTime "2025-04-19T00:27:00"^^xsd:dateTime ;
+    travel:departureAirport "LHR" ;
+    travel:departureCity "London" ;
+    travel:departureCountry "UK" ;
+    travel:departureDateTime "2025-04-19T23:18:00"^^xsd:dateTime ;
+    travel:flightNumber "LH546" .
+
+travel:flight_SQ152 a travel:Flight ;
+    travel:airline "Emirates" ;
+    travel:arrivalAirport "LHR" ;
+    travel:arrivalCity "London" ;
+    travel:arrivalCountry "UK" ;
+    travel:arrivalDateTime "2025-04-05T07:45:00"^^xsd:dateTime ;
+    travel:departureAirport "CDG" ;
+    travel:departureCity "Paris" ;
+    travel:departureCountry "France" ;
+    travel:departureDateTime "2025-04-05T06:52:00"^^xsd:dateTime ;
+    travel:flightNumber "SQ152" .
+
+travel:flight_SQ279 a travel:Flight ;
+    travel:airline "Lufthansa" ;
+    travel:arrivalAirport "DXB" ;
+    travel:arrivalCity "Dubai" ;
+    travel:arrivalCountry "UAE" ;
+    travel:arrivalDateTime "2025-04-10T15:11:00"^^xsd:dateTime ;
+    travel:departureAirport "LHR" ;
+    travel:departureCity "London" ;
+    travel:departureCountry "UK" ;
+    travel:departureDateTime "2025-04-10T17:48:00"^^xsd:dateTime ;
+    travel:flightNumber "SQ279" .
+
+travel:flight_SQ463 a travel:Flight ;
+    travel:airline "Lufthansa" ;
+    travel:arrivalAirport "JFK" ;
+    travel:arrivalCity "New York" ;
+    travel:arrivalCountry "USA" ;
+    travel:arrivalDateTime "2025-05-13T18:25:00"^^xsd:dateTime ;
+    travel:departureAirport "DXB" ;
+    travel:departureCity "Dubai" ;
+    travel:departureCountry "UAE" ;
+    travel:departureDateTime "2025-05-13T10:20:00"^^xsd:dateTime ;
+    travel:flightNumber "SQ463" .
+
+travel:hotel_booking_3cab25c7-df63-4705-a792-899c8730aceb a travel:HotelBooking ;
+    travel:bookingReference "HB40480" ;
+    travel:checkInDate "2025-04-05T16:04:53.613976"^^xsd:dateTime ;
+    travel:checkOutDate "2025-04-14T16:04:53.613976"^^xsd:dateTime ;
+    travel:city "London" ;
+    travel:country "UK" ;
+    travel:hotelName "Sheraton" ;
+    travel:roomType "Standard" .
+
+travel:hotel_booking_a5fc9009-34a0-4af3-b2de-1166ec410974 a travel:HotelBooking ;
+    travel:bookingReference "HB25612" ;
+    travel:checkInDate "2025-04-19T16:04:53.613976"^^xsd:dateTime ;
+    travel:checkOutDate "2025-04-23T16:04:53.613976"^^xsd:dateTime ;
+    travel:city "Paris" ;
+    travel:country "France" ;
+    travel:hotelName "Marriott" ;
+    travel:roomType "Deluxe" .
+
+travel:hotel_booking_a8609bd3-50df-4a25-9f54-ab06266c7a82 a travel:HotelBooking ;
+    travel:bookingReference "HB78827" ;
+    travel:checkInDate "2025-05-09T16:04:53.613976"^^xsd:dateTime ;
+    travel:checkOutDate "2025-05-13T16:04:53.613976"^^xsd:dateTime ;
+    travel:city "Dubai" ;
+    travel:country "UAE" ;
+    travel:hotelName "Ritz-Carlton" ;
+    travel:roomType "Suite" .
+
+travel:hotel_booking_befa301e-0ff0-4459-8857-d22f67589116 a travel:HotelBooking ;
+    travel:bookingReference "HB19428" ;
+    travel:checkInDate "2025-04-10T16:04:53.613976"^^xsd:dateTime ;
+    travel:checkOutDate "2025-04-13T16:04:53.613976"^^xsd:dateTime ;
+    travel:city "Dubai" ;
+    travel:country "UAE" ;
+    travel:hotelName "Hyatt" ;
+    travel:roomType "Deluxe" .
+
+travel:place_3cab25c7-df63-4705-a792-899c8730aceb a travel:Place ;
+    travel:placeName "London"^^xsd:string ;
+    travel:placeTime "2025-04-05T07:45:00"^^xsd:dateTime .
+
+travel:place_a5fc9009-34a0-4af3-b2de-1166ec410974 a travel:Place ;
+    travel:placeName "Paris"^^xsd:string ;
+    travel:placeTime "2025-04-19T00:27:00"^^xsd:dateTime .
+
+travel:place_a8609bd3-50df-4a25-9f54-ab06266c7a82 a travel:Place ;
+    travel:placeName "Dubai"^^xsd:string ;
+    travel:placeTime "2025-05-09T02:49:00"^^xsd:dateTime .
+
+travel:place_befa301e-0ff0-4459-8857-d22f67589116 a travel:Place ;
+    travel:placeName "Dubai"^^xsd:string ;
+    travel:placeTime "2025-04-10T15:11:00"^^xsd:dateTime .
+
+health:HealthMetric a owl:Class ;
+    rdfs:label "Health Metric"^^xsd:string .
+
+location:Airport a owl:Class ;
+    rdfs:label "Airport"^^xsd:string .
+
+person:Person a owl:Class ;
+    rdfs:label "Person"^^xsd:string .
+
+travel:Booking a owl:Class ;
+    rdfs:label "Travel Booking"^^xsd:string .
+
+travel:Place a owl:Class ;
+    rdfs:label "Travel Place"^^xsd:string .
+
+travel:Flight a owl:Class ;
+    rdfs:label "Flight"^^xsd:string .
+
+general:Others a owl:Class ;
+    rdfs:label "Other activities"^^xsd:string .
+
+health:Sleep a owl:Class ;
+    rdfs:label "Sleep"^^xsd:string .
+
+health:VitalSigns a owl:Class ;
+    rdfs:label "Vital Signs"^^xsd:string .
+
+health:PhysicalActivity a owl:Class ;
+    rdfs:label "Physical Activity"^^xsd:string .
 

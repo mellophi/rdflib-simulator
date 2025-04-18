@@ -47,7 +47,7 @@ class PersonalDataSimulator:
     def generate_daily_health_data(self) -> Dict[str, Any]:
         """Generate synthetic health data for a single day."""
         return {
-            'date': self.current_date.strftime('%Y-%m-%d'),
+            'date': self.current_date.isoformat(),
             'steps': random.randint(*self.health_ranges['steps']),
             'heart_rate': {
                 'average': random.randint(*self.health_ranges['heart_rate']),
@@ -76,32 +76,38 @@ class PersonalDataSimulator:
         departure_date = self.current_date + timedelta(days=random.randint(7, 30))
         return_date = departure_date + timedelta(days=random.randint(2, 14))
         
+        # Generate random times
+        departure_time = f"{random.randint(0, 23):02d}:{random.randint(0, 59):02d}:00"
+        arrival_time = f"{random.randint(0, 23):02d}:{random.randint(0, 59):02d}:00"
+        
+        # Combine date and time into datetime objects
+        departure_datetime = datetime.fromisoformat(f"{departure_date.date()}T{departure_time}")
+        arrival_datetime = datetime.fromisoformat(f"{departure_date.date()}T{arrival_time}")
+        
         # Generate booking details
         booking = {
             'booking_id': str(uuid.uuid4()),
-            'booking_date': self.current_date.strftime('%Y-%m-%d'),
+            'booking_date': self.current_date.isoformat(),
             'flight': {
                 'departure': {
                     'airport': departure[0],
                     'city': departure[1],
                     'country': departure[2],
-                    'date': departure_date.strftime('%Y-%m-%d'),
-                    'time': f"{random.randint(0, 23):02d}:{random.randint(0, 59):02d}"
+                    'datetime': departure_datetime.isoformat()
                 },
                 'arrival': {
                     'airport': arrival[0],
                     'city': arrival[1],
                     'country': arrival[2],
-                    'date': departure_date.strftime('%Y-%m-%d'),
-                    'time': f"{random.randint(0, 23):02d}:{random.randint(0, 59):02d}"
+                    'datetime': arrival_datetime.isoformat()
                 },
                 'airline': random.choice(['Emirates', 'British Airways', 'Lufthansa', 'Singapore Airlines']),
                 'flight_number': f"{random.choice(['EK', 'BA', 'LH', 'SQ'])}{random.randint(100, 999)}"
             },
             'hotel': {
                 'name': random.choice(self.hotels),
-                'check_in': departure_date.strftime('%Y-%m-%d'),
-                'check_out': return_date.strftime('%Y-%m-%d'),
+                'check_in': departure_date.isoformat(),
+                'check_out': return_date.isoformat(),
                 'city': arrival[1],
                 'country': arrival[2],
                 'room_type': random.choice(['Standard', 'Deluxe', 'Suite']),
@@ -110,20 +116,25 @@ class PersonalDataSimulator:
         }
         
         # Add return flight
+        return_departure_time = f"{random.randint(0, 23):02d}:{random.randint(0, 59):02d}:00"
+        return_arrival_time = f"{random.randint(0, 23):02d}:{random.randint(0, 59):02d}:00"
+        
+        # Combine return date and time into datetime objects
+        return_departure_datetime = datetime.fromisoformat(f"{return_date.date()}T{return_departure_time}")
+        return_arrival_datetime = datetime.fromisoformat(f"{return_date.date()}T{return_arrival_time}")
+        
         booking['return_flight'] = {
             'departure': {
                 'airport': arrival[0],
                 'city': arrival[1],
                 'country': arrival[2],
-                'date': return_date.strftime('%Y-%m-%d'),
-                'time': f"{random.randint(0, 23):02d}:{random.randint(0, 59):02d}"
+                'datetime': return_departure_datetime.isoformat()
             },
             'arrival': {
                 'airport': departure[0],
                 'city': departure[1],
                 'country': departure[2],
-                'date': return_date.strftime('%Y-%m-%d'),
-                'time': f"{random.randint(0, 23):02d}:{random.randint(0, 59):02d}"
+                'datetime': return_arrival_datetime.isoformat()
             },
             'airline': random.choice(['Emirates', 'British Airways', 'Lufthansa', 'Singapore Airlines']),
             'flight_number': f"{random.choice(['EK', 'BA', 'LH', 'SQ'])}{random.randint(100, 999)}"

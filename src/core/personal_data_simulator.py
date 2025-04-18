@@ -13,7 +13,7 @@ class DataType(Enum):
     HEALTH_ONLY = auto()
     TRAVEL_ONLY = auto()
     HEALTH_AND_TRAVEL = auto()
-    NO_DATA = auto()
+    GENERAL = auto()
 
 class PersonalDataKnowledgeSimulator:
     def __init__(self, person_id: str, start_date: Optional[datetime] = None,
@@ -40,7 +40,7 @@ class PersonalDataKnowledgeSimulator:
             DataType: Enum indicating what type of data was added (HEALTH_ONLY or HEALTH_AND_TRAVEL)
         """
         # Initialize data type
-        data_type = DataType.NO_DATA
+        data_type = DataType.GENERAL
         
         # Determine which types of data to generate based on probabilities
         generate_travel = random.random() < self.travel_probability
@@ -61,6 +61,9 @@ class PersonalDataKnowledgeSimulator:
             health_data = self.data_simulator.generate_daily_health_data()
             self.ontology_builder.add_health_data(health_data, self.person_id)
             data_type = DataType.HEALTH_ONLY
+        else:
+            date = self.data_simulator.current_date.isoformat()
+            self.ontology_builder.add_general_activity(self.person_id, date)
             
         # Advance to next day
         self.data_simulator.advance_day()

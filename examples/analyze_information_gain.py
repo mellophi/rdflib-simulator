@@ -107,14 +107,16 @@ def simulate_scenario_3(simulator, start_date, days):
         
         travel_gain = analyzer.calculate_information_gain(
             'travel', prev_graph, simulator.ontology_builder.get_graph_manager().graph)
+        health_gain = analyzer.calculate_information_gain(
+            'health', prev_graph, simulator.ontology_builder.get_graph_manager().graph)
         t_gain -= t_W * t_instances * t_probability *  math.log2(t_probability) 
         h_gain -= h_W * h_instances * h_probability *  math.log2(h_probability) 
 
         travel_gains.append(travel_gain)
-        health_gains.append(h_gain)
+        health_gains.append(health_gain)
         t_gains.append(t_gain)
         h_gains.append(h_gain)
-        total_gains.append(travel_gain + t_gain + h_gain)
+        total_gains.append(travel_gain + health_gain + t_gain + h_gain)
         timestamps.append(current_date.strftime('%Y-%m-%d'))
         
         current_date += timedelta(days=1)
@@ -218,7 +220,7 @@ def main():
     plt.plot(x, travel_gains3, label='Travel Information Gain', color='#FF6B6B')
     plt.plot(x, health_gains3, label='Health Information Gain', color='#4ECDC4') 
     plt.plot(x, t_gains3, label='T Information Gain', color='#45B7D1')
-    plt.plot(x, h_gains3, label='Health Information Gain', color='#96CEB4')
+    plt.plot(x, h_gains3, label='H Information Gain', color='#96CEB4')
     plt.plot(x, total_gains3, label='Total Information Gain', color='#FFD93D', linewidth=2)
     plt.xlabel('Time (Days)')
     plt.ylabel('Information Gain')

@@ -30,16 +30,16 @@ class OntologyBuilder:
             superclass (Optional[str]): Parent class URI
         """
         class_uri = class_name
-        self.gm.add_triple(class_uri, "rdf:type", OWL.Class.toPython())
+        self.gm.add_triple(class_uri, RDF.type, OWL.Class.toPython())
         
         if label:
-            self.gm.add_triple(class_uri, "rdfs:label", label, XSD.string.toPython())
+            self.gm.add_triple(class_uri, RDFS.label, label, XSD.string.toPython())
         
         if comment:
-            self.gm.add_triple(class_uri, "rdfs:comment", comment, XSD.string.toPython())
+            self.gm.add_triple(class_uri, RDFS.comment, comment, XSD.string.toPython())
             
         if superclass:
-            self.gm.add_triple(class_uri, "rdfs:subClassOf", superclass)
+            self.gm.add_triple(class_uri, RDFS.subClassOf, superclass)
 
     def create_property(self, property_name: str, 
                        property_type: str = "ObjectProperty",
@@ -61,21 +61,21 @@ class OntologyBuilder:
         property_uri = property_name
         
         if property_type == "ObjectProperty":
-            self.gm.add_triple(property_uri, "rdf:type", OWL.ObjectProperty.toPython())
+            self.gm.add_triple(property_uri, RDF.type, OWL.ObjectProperty.toPython())
         else:
-            self.gm.add_triple(property_uri, "rdf:type", OWL.DatatypeProperty.toPython())
+            self.gm.add_triple(property_uri, RDF.type, OWL.DatatypeProperty.toPython())
             
         if domain:
-            self.gm.add_triple(property_uri, "rdfs:domain", domain)
+            self.gm.add_triple(property_uri, RDFS.domain, domain)
             
         if range_:
-            self.gm.add_triple(property_uri, "rdfs:range", range_)
+            self.gm.add_triple(property_uri, RDFS.range, range_)
             
         if label:
-            self.gm.add_triple(property_uri, "rdfs:label", label, XSD.string.toPython())
+            self.gm.add_triple(property_uri, RDFS.label, label, XSD.string.toPython())
             
         if comment:
-            self.gm.add_triple(property_uri, "rdfs:comment", comment, XSD.string.toPython())
+            self.gm.add_triple(property_uri, RDFS.comment, comment, XSD.string.toPython())
 
     def create_individual(self, individual_name: str, 
                          class_uri: str,
@@ -91,10 +91,10 @@ class OntologyBuilder:
             properties (Optional[Dict]): Dictionary of property-value pairs
         """
         individual_uri = individual_name
-        self.gm.add_triple(individual_uri, "rdf:type", class_uri)
+        self.gm.add_triple(individual_uri, RDF.type, class_uri)
         
         if label:
-            self.gm.add_triple(individual_uri, "rdfs:label", label, XSD.string.toPython())
+            self.gm.add_triple(individual_uri, RDFS.label, label, XSD.string.toPython())
             
         if properties:
             for prop, value in properties.items():
@@ -117,14 +117,14 @@ class OntologyBuilder:
             str: URI of the created restriction
         """
         restriction = BNode()
-        self.gm.add_triple(str(restriction), "rdf:type", OWL.Restriction.toPython())
-        self.gm.add_triple(str(restriction), "owl:onProperty", on_property)
+        self.gm.add_triple(str(restriction), RDF.type, OWL.Restriction.toPython())
+        self.gm.add_triple(str(restriction), OWL.onProperty, on_property)
         
         restriction_uri = f"owl:{restriction_type}"
         self.gm.add_triple(str(restriction), restriction_uri, str(value))
         
         if class_uri:
-            self.gm.add_triple(class_uri, "rdfs:subClassOf", str(restriction))
+            self.gm.add_triple(class_uri, RDFS.subClassOf, str(restriction))
             
         return str(restriction)
 

@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://example.org/personal#"
+     xml:base="http://example.org/personal"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://example.org/personal"/>
+    
+    <!-- Classes -->
+    <owl:Class rdf:about="http://example.org/personal#Person">
+        <rdfs:label>Person</rdfs:label>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://example.org/personal#HealthData">
+        <rdfs:label>Health Data</rdfs:label>
+    </owl:Class>
+    
+    <owl:Class rdf:about="http://example.org/personal#TravelBooking">
+        <rdfs:label>Travel Booking</rdfs:label>
+    </owl:Class>
+    
+    <!-- Data Properties -->
+    <!-- Health Data Properties -->
+    <owl:DatatypeProperty rdf:about="http://example.org/personal#heartRate">
+        <rdfs:domain rdf:resource="http://example.org/personal#HealthData"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>Heart Rate</rdfs:label>
+        <rdfs:comment>Restricted to values between 40 and 200 bpm</rdfs:comment>
+        <owl:withRestrictions rdf:parseType="Collection">
+            <rdf:Description>
+                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">40</xsd:minInclusive>
+            </rdf:Description>
+            <rdf:Description>
+                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">200</xsd:maxInclusive>
+            </rdf:Description>
+        </owl:withRestrictions>
+    </owl:DatatypeProperty>
+    
+    <owl:DatatypeProperty rdf:about="http://example.org/personal#bloodPressureSystolic">
+        <rdfs:domain rdf:resource="http://example.org/personal#HealthData"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>Blood Pressure Systolic</rdfs:label>
+        <rdfs:comment>Restricted to values between 90 and 180 mmHg</rdfs:comment>
+        <owl:withRestrictions rdf:parseType="Collection">
+            <rdf:Description>
+                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">90</xsd:minInclusive>
+            </rdf:Description>
+            <rdf:Description>
+                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">180</xsd:maxInclusive>
+            </rdf:Description>
+        </owl:withRestrictions>
+    </owl:DatatypeProperty>
+    
+    <owl:DatatypeProperty rdf:about="http://example.org/personal#bloodPressureDiastolic">
+        <rdfs:domain rdf:resource="http://example.org/personal#HealthData"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>Blood Pressure Diastolic</rdfs:label>
+        <rdfs:comment>Restricted to values between 60 and 120 mmHg</rdfs:comment>
+        <owl:withRestrictions rdf:parseType="Collection">
+            <rdf:Description>
+                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</xsd:minInclusive>
+            </rdf:Description>
+            <rdf:Description>
+                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">120</xsd:maxInclusive>
+            </rdf:Description>
+        </owl:withRestrictions>
+    </owl:DatatypeProperty>
+    
+    <owl:DatatypeProperty rdf:about="http://example.org/personal#steps">
+        <rdfs:domain rdf:resource="http://example.org/personal#HealthData"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>Steps</rdfs:label>
+        <rdfs:comment>Restricted to values between 0 and 50000 steps</rdfs:comment>
+        <owl:withRestrictions rdf:parseType="Collection">
+            <rdf:Description>
+                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</xsd:minInclusive>
+            </rdf:Description>
+            <rdf:Description>
+                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50000</xsd:maxInclusive>
+            </rdf:Description>
+        </owl:withRestrictions>
+    </owl:DatatypeProperty>
+    
+    <owl:DatatypeProperty rdf:about="http://example.org/personal#sleepHours">
+        <rdfs:domain rdf:resource="http://example.org/personal#HealthData"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+        <rdfs:label>Sleep Hours</rdfs:label>
+        <rdfs:comment>Restricted to values between 0 and 24 hours</rdfs:comment>
+        <owl:withRestrictions rdf:parseType="Collection">
+            <rdf:Description>
+                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</xsd:minInclusive>
+            </rdf:Description>
+            <rdf:Description>
+                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">24.0</xsd:maxInclusive>
+            </rdf:Description>
+        </owl:withRestrictions>
+    </owl:DatatypeProperty>
+    
+    <!-- Travel Booking Properties -->
+    <owl:DatatypeProperty rdf:about="http://example.org/personal#destination">
+        <rdfs:domain rdf:resource="http://example.org/personal#TravelBooking"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>Destination</rdfs:label>
+        <owl:oneOf>
+            <rdf:Description>
+                <rdf:first>Paris</rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:first>London</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:first>New York</rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:first>Tokyo</rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:first>Singapore</rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </owl:oneOf>
+    </owl:DatatypeProperty>
+    
+    <owl:DatatypeProperty rdf:about="http://example.org/personal#departureDate">
+        <rdfs:domain rdf:resource="http://example.org/personal#TravelBooking"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>Departure Date</rdfs:label>
+    </owl:DatatypeProperty>
+    
+    <owl:DatatypeProperty rdf:about="http://example.org/personal#returnDate">
+        <rdfs:domain rdf:resource="http://example.org/personal#TravelBooking"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>Return Date</rdfs:label>
+    </owl:DatatypeProperty>
+    
+    <owl:DatatypeProperty rdf:about="http://example.org/personal#purpose">
+        <rdfs:domain rdf:resource="http://example.org/personal#TravelBooking"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>Travel Purpose</rdfs:label>
+        <owl:oneOf>
+            <rdf:Description>
+                <rdf:first>Business</rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:first>Leisure</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:first>Conference</rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:first>Family Visit</rdf:first>
+                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </owl:oneOf>
+    </owl:DatatypeProperty>
+    
+    <!-- Object Properties -->
+    <owl:ObjectProperty rdf:about="http://example.org/personal#hasHealthData">
+        <rdfs:domain rdf:resource="http://example.org/personal#Person"/>
+        <rdfs:range rdf:resource="http://example.org/personal#HealthData"/>
+        <rdfs:label>Has Health Data</rdfs:label>
+    </owl:ObjectProperty>
+    
+    <owl:ObjectProperty rdf:about="http://example.org/personal#hasTravelBooking">
+        <rdfs:domain rdf:resource="http://example.org/personal#Person"/>
+        <rdfs:range rdf:resource="http://example.org/personal#TravelBooking"/>
+        <rdfs:label>Has Travel Booking</rdfs:label>
+    </owl:ObjectProperty>
+    
+</rdf:RDF> 
