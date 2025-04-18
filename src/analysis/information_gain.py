@@ -99,7 +99,7 @@ class InformationGainAnalyzer:
         if nodes_after:
             entropy_after /= len(nodes_after)
             
-        return max(0, entropy_after - entropy_before)
+        return max(0, entropy_after)
         
     def plot_information_gain_comparison(self, 
                                        health_gains: List[float],
