@@ -1,5 +1,5 @@
 """
-Example script to identify baseline drift in health vitals over time.
+Example script to identify baseline drift in health vitals over time and output combined RDF graph.
 """
 
 from datetime import datetime, timedelta
@@ -11,6 +11,7 @@ from sklearn.metrics import roc_curve, auc, accuracy_score, precision_score, rec
 import json
 import os
 import random
+from rdflib import Graph, Namespace, RDF, RDFS, XSD, OWL
 
 def calculate_weekly_averages(health_data: List[Dict]) -> Tuple[List[float], List[float], List[float]]:
     """
@@ -39,7 +40,6 @@ def calculate_weekly_averages(health_data: List[Dict]) -> Tuple[List[float], Lis
     # Add remaining days if any
     if current_week:
         week_data.append(current_week)
-    
     # Calculate weekly averages
     for week in week_data:
         # Heart rate
@@ -69,6 +69,8 @@ def detect_significant_changes(weekly_data: List[float], threshold: float = None
     """
     significant_changes = []
     percent_changes = [0.0]  # First week has no change
+
+    print(len(weekly_data))
     
     if len(weekly_data) < 2:
         return significant_changes, percent_changes
@@ -129,192 +131,31 @@ def generate_lazy_health_data(simulator):
     
     return data
 
-def plot_health_trends(weekly_data: List[List[float]], weeks: List[int], 
-                      significant_changes: List[List[int]], output_file: str):
-    """Plot health metrics trends with highlighted significant changes."""
-    metrics = ['Heart Rate', 'Blood Pressure', 'Sleep Duration']
-    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1']
-    
-    plt.figure(figsize=(15, 10))
-    
-    for idx, (data, metric, color) in enumerate(zip(weekly_data, metrics, colors)):
-        plt.subplot(3, 1, idx + 1)
-        plt.plot(weeks, data, marker='o', color=color, label=metric)
-        
-        # Highlight significant changes
-        for change_week in significant_changes[idx]:
-            plt.axvline(x=change_week, color='red', linestyle='--', alpha=0.3)
-            plt.scatter([change_week], [data[change_week]], 
-                       color='red', s=100, zorder=5)
-            
-            # Add annotation
-            plt.annotate(f'Significant change\nWeek {change_week + 1}',
-                        xy=(change_week, data[change_week]),
-                        xytext=(10, 10), textcoords='offset points',
-                        ha='left', va='bottom',
-                        bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.3),
-                        arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
-        
-        plt.title(f'{metric} Weekly Average')
-        plt.xlabel('Week')
-        plt.ylabel('Average Value')
-        plt.grid(True, alpha=0.3)
-        plt.legend()
-    
-    plt.tight_layout()
-    plt.savefig(output_file)
-    plt.close()
-
-def plot_drift_heatmap(data, output_file: str):
-    """Plot heatmap showing drift patterns across all persons."""
-    plt.figure(figsize=(12, 8))
-    
-    # Plot ground truth
-    plt.subplot(2, 1, 1)
-    plt.imshow(data[:, 0, :], aspect='auto', cmap='YlOrRd')
-    plt.title('Ground Truth Drift Patterns')
-    plt.xlabel('Week')
-    plt.ylabel('Person ID')
-    plt.colorbar(label='Drift Present')
-    
-    # Plot detected changes
-    plt.subplot(2, 1, 2)
-    plt.imshow(data[:, 1, :], aspect='auto', cmap='YlOrRd')
-    plt.title('Detected Drift Patterns')
-    plt.xlabel('Week')
-    plt.ylabel('Person ID')
-    plt.colorbar(label='Change Detected')
-    
-    plt.tight_layout()
-    plt.savefig(output_file)
-    plt.close()
-
-def plot_metric_distributions(all_metrics: List[Dict], drift_starts: List[int], output_file: str):
-    """Plot distribution of metrics before and after drift."""
-    # Collect metrics before and after drift
-    before_hr = []
-    after_hr = []
-    before_bp = []
-    after_bp = []
-    before_sleep = []
-    after_sleep = []
-    
-    for person_idx, metrics in enumerate(all_metrics):
-        drift_day = drift_starts[person_idx]
-        for day, data in enumerate(metrics):
-            if day < drift_day:
-                before_hr.append(data['heart_rate']['average'])
-                before_bp.append(data['blood_pressure']['systolic'])
-                before_sleep.append(data['sleep']['duration'])
-            else:
-                after_hr.append(data['heart_rate']['average'])
-                after_bp.append(data['blood_pressure']['systolic'])
-                after_sleep.append(data['sleep']['duration'])
-    
-    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-    
-    # Heart Rate Distribution
-    axes[0].hist(before_hr, alpha=0.5, label='Before Drift', bins=20)
-    axes[0].hist(after_hr, alpha=0.5, label='After Drift', bins=20)
-    axes[0].set_title('Heart Rate Distribution')
-    axes[0].set_xlabel('Heart Rate (bpm)')
-    axes[0].set_ylabel('Frequency')
-    axes[0].legend()
-    
-    # Blood Pressure Distribution
-    axes[1].hist(before_bp, alpha=0.5, label='Before Drift', bins=20)
-    axes[1].hist(after_bp, alpha=0.5, label='After Drift', bins=20)
-    axes[1].set_title('Blood Pressure Distribution')
-    axes[1].set_xlabel('Systolic BP (mmHg)')
-    axes[1].set_ylabel('Frequency')
-    axes[1].legend()
-    
-    # Sleep Duration Distribution
-    axes[2].hist(before_sleep, alpha=0.5, label='Before Drift', bins=20)
-    axes[2].hist(after_sleep, alpha=0.5, label='After Drift', bins=20)
-    axes[2].set_title('Sleep Duration Distribution')
-    axes[2].set_xlabel('Sleep Duration (hours)')
-    axes[2].set_ylabel('Frequency')
-    axes[2].legend()
-    
-    plt.tight_layout()
-    plt.savefig(output_file)
-    plt.close()
-
-def plot_confusion_matrix(y_true, y_pred, output_file: str):
-    """Plot confusion matrix for drift detection."""
-    from sklearn.metrics import confusion_matrix
-    import seaborn as sns
-    
-    cm = confusion_matrix(y_true, y_pred)
-    plt.figure(figsize=(8, 6))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.title('Confusion Matrix')
-    plt.ylabel('True Label')
-    plt.xlabel('Predicted Label')
-    plt.savefig(output_file)
-    plt.close()
-
-def plot_average_trends(all_metrics: List[Dict], drift_starts: List[int], output_file: str):
-    """Plot average metric trends across all persons."""
-    max_days = max(len(metrics) for metrics in all_metrics)
-    
-    # Initialize arrays for average values
-    avg_hr = np.zeros(max_days)
-    avg_bp = np.zeros(max_days)
-    avg_sleep = np.zeros(max_days)
-    counts = np.zeros(max_days)
-    
-    # Collect daily averages
-    for metrics in all_metrics:
-        for day, data in enumerate(metrics):
-            avg_hr[day] += data['heart_rate']['average']
-            avg_bp[day] += data['blood_pressure']['systolic']
-            avg_sleep[day] += data['sleep']['duration']
-            counts[day] += 1
-    
-    # Calculate averages
-    avg_hr /= counts
-    avg_bp /= counts
-    avg_sleep /= counts
-    
-    # Plot trends
-    plt.figure(figsize=(12, 8))
-    
-    plt.subplot(3, 1, 1)
-    plt.plot(avg_hr, label='Heart Rate')
-    plt.title('Average Heart Rate Trend')
-    plt.xlabel('Day')
-    plt.ylabel('BPM')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(3, 1, 2)
-    plt.plot(avg_bp, label='Blood Pressure')
-    plt.title('Average Blood Pressure Trend')
-    plt.xlabel('Day')
-    plt.ylabel('mmHg')
-    plt.grid(True, alpha=0.3)
-    
-    plt.subplot(3, 1, 3)
-    plt.plot(avg_sleep, label='Sleep Duration')
-    plt.title('Average Sleep Duration Trend')
-    plt.xlabel('Day')
-    plt.ylabel('Hours')
-    plt.grid(True, alpha=0.3)
-    
-    plt.tight_layout()
-    plt.savefig(output_file)
-    plt.close()
-
 def main():
     persons_count = 50
     days_count = 30
-    weeks_count = days_count // 7
+    weeks_count = days_count // 7 + 1
     drift_insertion_range = (1, days_count)
     data = np.zeros((persons_count, 2, weeks_count))
     
     output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data')
     os.makedirs(output_dir, exist_ok=True)
+    
+    # Initialize combined graph with proper namespaces
+    combined_graph = Graph()
+    
+    # Bind common namespaces
+    HEALTH = Namespace("http://example.org/health#")
+    PERSON = Namespace("http://example.org/person#")
+    TRAVEL = Namespace("http://example.org/travel#")
+    
+    combined_graph.bind("health", HEALTH)
+    combined_graph.bind("person", PERSON)
+    combined_graph.bind("travel", TRAVEL)
+    combined_graph.bind("rdf", RDF)
+    combined_graph.bind("rdfs", RDFS)
+    combined_graph.bind("xsd", XSD)
+    combined_graph.bind("owl", OWL)
     
     all_health_data = []
     drift_start_days = []
@@ -327,7 +168,6 @@ def main():
         simulator = PersonalDataKnowledgeSimulator(person_id, start_date)
         
         # Simulate 30 days of data
-        print(f"Simulating {days_count} days of health data for {person_id}...")
         health_data = []
 
         # Simulate ground truth drift
@@ -336,7 +176,6 @@ def main():
         gt_drift_weeks = gt_drift_start_date // 7
         if gt_drift_weeks > 0 and gt_drift_weeks < weeks_count:
             data[id, 0, gt_drift_weeks:] = 1  # Mark weeks after drift starts
-        print(f"Ground truth drift starts at day {gt_drift_start_date} (week {gt_drift_weeks})")
         
         for day in range(days_count):
             data_type = simulator.simulate_day()
@@ -346,140 +185,56 @@ def main():
                 health_metrics = generate_lazy_health_data(simulator)
             else:
                 health_metrics = simulator.data_simulator.generate_daily_health_data()
+            simulator.ontology_builder.add_health_data(health_metrics, person_id)
             health_data.append(health_metrics)
+        
+        # Merge individual graph into combined graph
+        individual_graph = simulator.ontology_builder.gm.graph
+        
+        # Copy namespace bindings from individual graph if they don't exist
+        for prefix, namespace in individual_graph.namespaces():
+            if prefix not in combined_graph.namespaces():
+                combined_graph.bind(prefix, namespace)
+        
+        combined_graph += individual_graph
         
         all_health_data.append(health_data)
         
-        # Calculate weekly averages
+        # Calculate weekly averages and detect changes
         heart_rate_avgs, bp_avgs, sleep_avgs = calculate_weekly_averages(health_data)
-        
-        # Detect significant changes and get percentage changes
         hr_changes, hr_pct = detect_significant_changes(heart_rate_avgs)
         bp_changes, bp_pct = detect_significant_changes(bp_avgs)
         sleep_changes, sleep_pct = detect_significant_changes(sleep_avgs)
         
-        # Store average percentage change per week
+        # Process metrics and changes
         avg_pct_changes = [np.mean([hr_pct[i], bp_pct[i], sleep_pct[i]]) for i in range(len(hr_pct))]
-        
-        # Calculate additional features
         hr_std = np.std(heart_rate_avgs)
         bp_std = np.std(bp_avgs)
         sleep_std = np.std(sleep_avgs)
         
-        # Normalize changes by standard deviation
         normalized_changes = [np.mean([
             hr_pct[i]/hr_std if hr_std > 0 else 0,
             bp_pct[i]/bp_std if bp_std > 0 else 0,
             sleep_pct[i]/sleep_std if sleep_std > 0 else 0
         ]) for i in range(len(hr_pct))]
         
-        # Combine raw and normalized changes
         combined_changes = [0.7 * avg_pct_changes[i] + 0.3 * normalized_changes[i] 
                           for i in range(len(avg_pct_changes))]
         
-        # Ensure we have the same number of predictions as ground truth weeks
-        while len(combined_changes) < weeks_count:
-            combined_changes.append(0.0)
-        all_percent_changes.extend(combined_changes[:weeks_count])
+        all_percent_changes.extend(combined_changes)
         
         # Create prediction array
         pred_changes = np.zeros(weeks_count)
-        # Mark weeks where any metric showed significant change
         for week in set(hr_changes + bp_changes + sleep_changes):
-            if week < weeks_count:  # Ensure we don't exceed array bounds
+            if week < weeks_count:
                 pred_changes[week] = 1
         data[id, 1, :] = pred_changes
 
-        # Plot individual results
-        if id == 0:  # Only plot for the first person as an example
-            weeks = list(range(len(heart_rate_avgs)))
-            weekly_data = [heart_rate_avgs, bp_avgs, sleep_avgs]
-            significant_changes = [hr_changes, bp_changes, sleep_changes]
-            plot_health_trends(weekly_data, weeks, significant_changes, 
-                             os.path.join(output_dir, f'health_baseline_drift_{person_id}.png'))
+    # Save combined graph to TTL file
+    ttl_output = os.path.join(output_dir, 'combined_health_data.ttl')
+    combined_graph.serialize(destination=ttl_output, format='turtle')
     
-    # Calculate ROC curve using percentage changes
-    y_true = data[:, 0, :].flatten()
-    y_pred_pct = np.array(all_percent_changes)
-    
-    # Save ground truth and predictions as npy files
-    np.save(os.path.join(output_dir, 'y_true.npy'), y_true)
-    np.save(os.path.join(output_dir, 'y_pred_pct.npy'), y_pred_pct)
-    
-    # Calculate ROC curve points using percentage changes
-    fpr, tpr, thresholds = roc_curve(y_true, y_pred_pct)
-    roc_auc = auc(fpr, tpr)
-    
-    # Find optimal threshold using Youden's J statistic
-    optimal_idx = np.argmax(tpr - fpr)
-    optimal_threshold = thresholds[optimal_idx]
-    
-    # Calculate binary predictions using optimal threshold
-    y_pred_binary = (y_pred_pct >= optimal_threshold).astype(int)
-    
-    # Calculate additional metrics
-    accuracy = accuracy_score(y_true, y_pred_binary)
-    precision = precision_score(y_true, y_pred_binary)
-    recall = recall_score(y_true, y_pred_binary)
-    f1 = f1_score(y_true, y_pred_binary)
-    
-    # Save metrics to JSON file
-    metrics = {
-        'accuracy': float(accuracy),
-        'precision': float(precision),
-        'recall': float(recall),
-        'f1_score': float(f1),
-        'roc_auc': float(roc_auc),
-        'optimal_threshold': float(optimal_threshold)
-    }
-    
-    metrics_file = os.path.join(output_dir, 'performance_metrics.json')
-    with open(metrics_file, 'w') as f:
-        json.dump(metrics, f, indent=4)
-    
-    # Generate additional visualizations
-    plot_drift_heatmap(data, os.path.join(output_dir, 'drift_heatmap.png'))
-    plot_metric_distributions(all_health_data, drift_start_days, 
-                            os.path.join(output_dir, 'metric_distributions.png'))
-    plot_confusion_matrix(y_true, y_pred_binary, 
-                         os.path.join(output_dir, 'confusion_matrix.png'))
-    plot_average_trends(all_health_data, drift_start_days,
-                       os.path.join(output_dir, 'average_trends.png'))
-    
-    # Plot ROC curve
-    plt.figure(figsize=(8, 6))
-    plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (AUC = {roc_auc:.2f})')
-    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
-    plt.scatter(fpr[optimal_idx], tpr[optimal_idx], color='red', 
-               label=f'Optimal threshold = {optimal_threshold:.2f}')
-    plt.xlim([0.0, 1.0])
-    plt.ylim([0.0, 1.05])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('Receiver Operating Characteristic (ROC) Curve')
-    plt.legend(loc="lower right")
-    
-    # Save ROC curve plot
-    roc_output_file = os.path.join(output_dir, 'health_baseline_drift_roc.png')
-    plt.savefig(roc_output_file)
-    plt.close()
-    
-    print(f"\nAnalysis complete! Results have been saved to:")
-    print(f"1. Individual plots: {output_dir}/health_baseline_drift_person*.png")
-    print(f"2. ROC curve: {roc_output_file}")
-    print(f"3. Drift heatmap: {output_dir}/drift_heatmap.png")
-    print(f"4. Metric distributions: {output_dir}/metric_distributions.png")
-    print(f"5. Confusion matrix: {output_dir}/confusion_matrix.png")
-    print(f"6. Average trends: {output_dir}/average_trends.png")
-    print(f"7. Performance metrics: {metrics_file}")
-    print(f"\nPerformance Metrics:")
-    print(f"Accuracy: {accuracy:.3f}")
-    print(f"Precision: {precision:.3f}")
-    print(f"Recall: {recall:.3f}")
-    print(f"F1 Score: {f1:.3f}")
-    print(f"ROC AUC Score: {roc_auc:.3f}")
-    print(f"Optimal Threshold: {optimal_threshold:.3f}")
+    print(f"\nAnalysis complete! Combined RDF graph saved to: {ttl_output}")
 
 if __name__ == "__main__":
     main()
-
