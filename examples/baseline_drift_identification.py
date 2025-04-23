@@ -56,18 +56,35 @@ def calculate_weekly_averages(health_data: List[Dict]) -> Tuple[List[float], Lis
     
     return weekly_heart_rates, weekly_blood_pressure, weekly_sleep
 
-def detect_significant_changes(weekly_data: List[float], threshold: float = 0.1) -> List[int]:
+def detect_significant_changes(weekly_data: List[float], threshold: float = None) -> Tuple[List[int], List[float]]:
     """
-    Detect weeks with significant changes compared to the previous week.
+    Detect weeks with significant changes compared to the previous week using adaptive thresholding.
     
     Args:
         weekly_data: List of weekly averages
-        threshold: Percentage change threshold to consider significant
+        threshold: Optional override for the adaptive threshold
         
     Returns:
-        List of week indices where significant changes occurred
+        Tuple of (list of week indices where significant changes occurred, list of percentage changes)
     """
     significant_changes = []
+    percent_changes = [0.0]  # First week has no change
+    
+    if len(weekly_data) < 2:
+        return significant_changes, percent_changes
+    
+    # Calculate rolling statistics
+    window = min(3, len(weekly_data))
+    rolling_mean = np.convolve(weekly_data, np.ones(window)/window, mode='valid')
+    rolling_std = np.array([np.std(weekly_data[max(0, i-window):i+1]) 
+                           for i in range(len(weekly_data))])
+    
+    # Compute adaptive threshold if not provided
+    if threshold is None:
+        # Use mean + 2*std of the first few weeks as baseline
+        baseline_weeks = min(3, len(weekly_data))
+        baseline_data = weekly_data[:baseline_weeks]
+        threshold = np.mean(baseline_data) + 2 * np.std(baseline_data)
     
     for i in range(1, len(weekly_data)):
         prev_week = weekly_data[i-1]
@@ -75,11 +92,30 @@ def detect_significant_changes(weekly_data: List[float], threshold: float = 0.1)
         
         # Calculate percentage change
         percent_change = abs(current_week - prev_week) / prev_week
+        percent_changes.append(percent_change)
         
+        # Check for significant changes using multiple criteria
+        is_significant = False
+        
+        # Criterion 1: Percentage change exceeds threshold
         if percent_change > threshold:
+            is_significant = True
+            
+        # Criterion 2: Value outside rolling mean ± 2*std
+        if i >= window and abs(current_week - rolling_mean[i-window]) > 2 * rolling_std[i]:
+            is_significant = True
+            
+        # Criterion 3: Consistent trend direction over window
+        if i >= window:
+            trend = all(np.diff(weekly_data[i-window:i+1]) > 0) or \
+                   all(np.diff(weekly_data[i-window:i+1]) < 0)
+            if trend and percent_change > threshold/2:  # Lower threshold for consistent trends
+                is_significant = True
+        
+        if is_significant:
             significant_changes.append(i)
     
-    return significant_changes
+    return significant_changes, percent_changes
 
 def generate_lazy_health_data(simulator):
     """Generate health data with a lazy pattern (reduced activity)."""
@@ -282,6 +318,7 @@ def main():
     
     all_health_data = []
     drift_start_days = []
+    all_percent_changes = []
     
     for id in range(persons_count):
         # Initialize simulator
@@ -316,10 +353,34 @@ def main():
         # Calculate weekly averages
         heart_rate_avgs, bp_avgs, sleep_avgs = calculate_weekly_averages(health_data)
         
-        # Detect significant changes
-        hr_changes = detect_significant_changes(heart_rate_avgs)
-        bp_changes = detect_significant_changes(bp_avgs)
-        sleep_changes = detect_significant_changes(sleep_avgs)
+        # Detect significant changes and get percentage changes
+        hr_changes, hr_pct = detect_significant_changes(heart_rate_avgs)
+        bp_changes, bp_pct = detect_significant_changes(bp_avgs)
+        sleep_changes, sleep_pct = detect_significant_changes(sleep_avgs)
+        
+        # Store average percentage change per week
+        avg_pct_changes = [np.mean([hr_pct[i], bp_pct[i], sleep_pct[i]]) for i in range(len(hr_pct))]
+        
+        # Calculate additional features
+        hr_std = np.std(heart_rate_avgs)
+        bp_std = np.std(bp_avgs)
+        sleep_std = np.std(sleep_avgs)
+        
+        # Normalize changes by standard deviation
+        normalized_changes = [np.mean([
+            hr_pct[i]/hr_std if hr_std > 0 else 0,
+            bp_pct[i]/bp_std if bp_std > 0 else 0,
+            sleep_pct[i]/sleep_std if sleep_std > 0 else 0
+        ]) for i in range(len(hr_pct))]
+        
+        # Combine raw and normalized changes
+        combined_changes = [0.7 * avg_pct_changes[i] + 0.3 * normalized_changes[i] 
+                          for i in range(len(avg_pct_changes))]
+        
+        # Ensure we have the same number of predictions as ground truth weeks
+        while len(combined_changes) < weeks_count:
+            combined_changes.append(0.0)
+        all_percent_changes.extend(combined_changes[:weeks_count])
         
         # Create prediction array
         pred_changes = np.zeros(weeks_count)
@@ -337,23 +398,30 @@ def main():
             plot_health_trends(weekly_data, weeks, significant_changes, 
                              os.path.join(output_dir, f'health_baseline_drift_{person_id}.png'))
     
-    # Calculate ROC curve
+    # Calculate ROC curve using percentage changes
     y_true = data[:, 0, :].flatten()
-    y_pred = data[:, 1, :].flatten()
+    y_pred_pct = np.array(all_percent_changes)
     
     # Save ground truth and predictions as npy files
     np.save(os.path.join(output_dir, 'y_true.npy'), y_true)
-    np.save(os.path.join(output_dir, 'y_pred.npy'), y_pred)
+    np.save(os.path.join(output_dir, 'y_pred_pct.npy'), y_pred_pct)
     
-    # Calculate ROC curve points
-    fpr, tpr, _ = roc_curve(y_true, y_pred)
+    # Calculate ROC curve points using percentage changes
+    fpr, tpr, thresholds = roc_curve(y_true, y_pred_pct)
     roc_auc = auc(fpr, tpr)
     
+    # Find optimal threshold using Youden's J statistic
+    optimal_idx = np.argmax(tpr - fpr)
+    optimal_threshold = thresholds[optimal_idx]
+    
+    # Calculate binary predictions using optimal threshold
+    y_pred_binary = (y_pred_pct >= optimal_threshold).astype(int)
+    
     # Calculate additional metrics
-    accuracy = accuracy_score(y_true, y_pred)
-    precision = precision_score(y_true, y_pred)
-    recall = recall_score(y_true, y_pred)
-    f1 = f1_score(y_true, y_pred)
+    accuracy = accuracy_score(y_true, y_pred_binary)
+    precision = precision_score(y_true, y_pred_binary)
+    recall = recall_score(y_true, y_pred_binary)
+    f1 = f1_score(y_true, y_pred_binary)
     
     # Save metrics to JSON file
     metrics = {
@@ -361,7 +429,8 @@ def main():
         'precision': float(precision),
         'recall': float(recall),
         'f1_score': float(f1),
-        'roc_auc': float(roc_auc)
+        'roc_auc': float(roc_auc),
+        'optimal_threshold': float(optimal_threshold)
     }
     
     metrics_file = os.path.join(output_dir, 'performance_metrics.json')
@@ -372,7 +441,7 @@ def main():
     plot_drift_heatmap(data, os.path.join(output_dir, 'drift_heatmap.png'))
     plot_metric_distributions(all_health_data, drift_start_days, 
                             os.path.join(output_dir, 'metric_distributions.png'))
-    plot_confusion_matrix(y_true, y_pred, 
+    plot_confusion_matrix(y_true, y_pred_binary, 
                          os.path.join(output_dir, 'confusion_matrix.png'))
     plot_average_trends(all_health_data, drift_start_days,
                        os.path.join(output_dir, 'average_trends.png'))
@@ -381,6 +450,8 @@ def main():
     plt.figure(figsize=(8, 6))
     plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (AUC = {roc_auc:.2f})')
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+    plt.scatter(fpr[optimal_idx], tpr[optimal_idx], color='red', 
+               label=f'Optimal threshold = {optimal_threshold:.2f}')
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.05])
     plt.xlabel('False Positive Rate')
@@ -407,6 +478,7 @@ def main():
     print(f"Recall: {recall:.3f}")
     print(f"F1 Score: {f1:.3f}")
     print(f"ROC AUC Score: {roc_auc:.3f}")
+    print(f"Optimal Threshold: {optimal_threshold:.3f}")
 
 if __name__ == "__main__":
     main()
