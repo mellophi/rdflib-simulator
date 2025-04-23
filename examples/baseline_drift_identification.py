@@ -7,7 +7,7 @@ import numpy as np
 from src.core.personal_data_simulator import PersonalDataKnowledgeSimulator
 import matplotlib.pyplot as plt
 from typing import Dict, List, Tuple
-from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import roc_curve, auc, accuracy_score, precision_score, recall_score, f1_score
 import json
 import os
 import random
@@ -341,9 +341,32 @@ def main():
     y_true = data[:, 0, :].flatten()
     y_pred = data[:, 1, :].flatten()
     
+    # Save ground truth and predictions as npy files
+    np.save(os.path.join(output_dir, 'y_true.npy'), y_true)
+    np.save(os.path.join(output_dir, 'y_pred.npy'), y_pred)
+    
     # Calculate ROC curve points
     fpr, tpr, _ = roc_curve(y_true, y_pred)
     roc_auc = auc(fpr, tpr)
+    
+    # Calculate additional metrics
+    accuracy = accuracy_score(y_true, y_pred)
+    precision = precision_score(y_true, y_pred)
+    recall = recall_score(y_true, y_pred)
+    f1 = f1_score(y_true, y_pred)
+    
+    # Save metrics to JSON file
+    metrics = {
+        'accuracy': float(accuracy),
+        'precision': float(precision),
+        'recall': float(recall),
+        'f1_score': float(f1),
+        'roc_auc': float(roc_auc)
+    }
+    
+    metrics_file = os.path.join(output_dir, 'performance_metrics.json')
+    with open(metrics_file, 'w') as f:
+        json.dump(metrics, f, indent=4)
     
     # Generate additional visualizations
     plot_drift_heatmap(data, os.path.join(output_dir, 'drift_heatmap.png'))
@@ -370,14 +393,20 @@ def main():
     plt.savefig(roc_output_file)
     plt.close()
     
-    print(f"\nAnalysis complete! Plots have been saved to:")
+    print(f"\nAnalysis complete! Results have been saved to:")
     print(f"1. Individual plots: {output_dir}/health_baseline_drift_person*.png")
     print(f"2. ROC curve: {roc_output_file}")
     print(f"3. Drift heatmap: {output_dir}/drift_heatmap.png")
     print(f"4. Metric distributions: {output_dir}/metric_distributions.png")
     print(f"5. Confusion matrix: {output_dir}/confusion_matrix.png")
     print(f"6. Average trends: {output_dir}/average_trends.png")
-    print(f"\nROC AUC Score: {roc_auc:.3f}")
+    print(f"7. Performance metrics: {metrics_file}")
+    print(f"\nPerformance Metrics:")
+    print(f"Accuracy: {accuracy:.3f}")
+    print(f"Precision: {precision:.3f}")
+    print(f"Recall: {recall:.3f}")
+    print(f"F1 Score: {f1:.3f}")
+    print(f"ROC AUC Score: {roc_auc:.3f}")
 
 if __name__ == "__main__":
     main()
